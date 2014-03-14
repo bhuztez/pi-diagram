@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Diagram of &pi;-Calculus</title>
+<script type="application/javascript;version=1.8" src="dfa.js"></script>
+<script type="application/javascript;version=1.8" src="slr.js"></script>
+<script type="application/javascript;version=1.8" src="pi.js"></script>
+<script type="application/javascript;version=1.8" src="diagram.js"></script>
+<script type="application/javascript;version=1.8" src="example.js"></script>
+<style type="text/css">
+canvas {
+  border: 1px dotted black;
+}
+
+#control {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1em 2em;
+}
+
+textarea {
+  width: 30em;
+  height: 20em;
+  resize: none;
+}
+
+#reset {
+  float: left;
+}
+
+#step {
+  float: right;
+}
+
+#result {
+  padding: 1em 0;
+  clear: both;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Diagram of &pi;-Calculus</h1>
+
+<p>Example taken from <a href="http://www.erlang.se/workshop/2005/noll_roy.pdf">Modeling Erlang in the &pi;-Calculus</a></p>
+
+<div id="control">
+<div>
+<textarea id="input">
+proc resource(Rsr) { recv Req from Rsr }
+
+proc manager(Rsr, Mgr) { recv C from Mgr; send Rsr to C }
+
+proc client(Mgr, Clt) {
+  { send Clt to Mgr } |
+  { recv R from Clt; new Req in { send Req to R } }
+}
+
+proc main() {
+  new Rsr, Mgr, Clt in {
+    resource(Rsr) | manager(Rsr, Mgr) | client(Mgr, Clt)
+  }
+}
+</textarea>
+</div>
+
+<div>
+<button id="step">Step</button>
+<button id="reset">Reset</button>
+</div>
+
+<div id="result"></div>
+</div>
+
+<canvas id="graph"></canvas>
+
+
+</body>
+</html>
