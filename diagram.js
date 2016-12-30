@@ -1,14 +1,14 @@
 function max_row(columns, lines) {
     var row = 0;
 
-    for each (let column in columns) {
+    for (let column of columns) {
         var r = (column.slice(-1)[0] || [0])[0];
         if (r > row) {
             row = r;
         }
     }
 
-    for each (let line in lines) {
+    for (let line of lines) {
         var r = line[4];
         if (r > row) {
             row = r;
@@ -22,7 +22,7 @@ function max_row(columns, lines) {
 function max_width(column) {
     var width = 0;
 
-    for each (let row in column) {
+    for (let row of column) {
         if (row[1] !== "text") {
             continue;
         }
@@ -40,7 +40,7 @@ function max_width(column) {
 function sum(array) {
     var s = 0;
 
-    for each (let elem in array) {
+    for (let elem of array) {
         s += elem;
     }
 
@@ -113,7 +113,7 @@ Diagram.prototype.draw = function() {
 
     var column_count = columns.length;
     var row_count = max_row(columns, lines);
-    var column_widths = [max_width(c) for each (c in columns)];
+    var column_widths = [for (c of columns) max_width(c)];
 
     var full_width = sum(column_widths) + COLPAD * 2 * column_count + COLSEP * (column_count - 1) + MARGIN * 2;
     var full_height = ROWHEIGHT * row_count + ROWSEP * (row_count - 1) + MARGIN * 2;
@@ -132,7 +132,7 @@ Diagram.prototype.draw = function() {
         var last_y = null;
 
 
-        for each (let row in columns[i]) {
+        for (let row of columns[i]) {
             var row_num = row[0];
             var y = row_y(row_num);
 
@@ -183,7 +183,7 @@ Diagram.prototype.draw = function() {
     }
 
 
-    for each (let [from_col, from_row, to_col, to_row, line_row, annotate] in lines) {
+    for (let [from_col, from_row, to_col, to_row, line_row, annotate] of lines) {
         var left_col, left_row, right_col, right_row;
 
         if (from_col < to_col) {

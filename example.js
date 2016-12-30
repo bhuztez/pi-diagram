@@ -49,7 +49,7 @@ function onLoad() {
             return;
         }
 
-        for each (let result in results) {
+        for (let result of results) {
             if (result[0] === 'new') {
                 diagram.add_text(result[1], "new " + result[2], result[3]);
             } else if (result[0] === 'send') {
