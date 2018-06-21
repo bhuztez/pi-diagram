@@ -113,7 +113,7 @@ Diagram.prototype.draw = function() {
 
     var column_count = columns.length;
     var row_count = max_row(columns, lines);
-    var column_widths = [for (c of columns) max_width(c)];
+    var column_widths = columns.map(c => max_width(c));
 
     var full_width = sum(column_widths) + COLPAD * 2 * column_count + COLSEP * (column_count - 1) + MARGIN * 2;
     var full_height = ROWHEIGHT * row_count + ROWSEP * (row_count - 1) + MARGIN * 2;
